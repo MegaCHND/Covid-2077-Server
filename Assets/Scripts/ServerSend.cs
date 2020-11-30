@@ -147,5 +147,37 @@ public class ServerSend
             SendTCPDataToAll(_packet);
         }
     }
+
+    public static void spawnEnemy(Enemy _enemy) {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnEnemy))
+        {
+            SendTCPDataToAll(SpawnEnemy_Data(_enemy, _packet));
+        }
+    }
+
+    public static void spawnEnemy(int _toClient, Enemy _enemy)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnEnemy))
+        {
+            SendTCPData(_toClient, SpawnEnemy_Data(_enemy, _packet));
+        }
+    }
+
+    public static Packet SpawnEnemy_Data(Enemy _enemy, Packet _packet) {
+        _packet.Write(_enemy.id);
+        _packet.Write(_enemy.transform.position);
+        _packet.Write(_enemy.transform.rotation);
+        return _packet;
+    }
+
+    public static void EnemyPos(Enemy _enemy) {
+        using (Packet _packet = new Packet((int)ServerPackets.enemyPosition))
+        {
+            _packet.Write(_enemy.id);
+            _packet.Write(_enemy.transform.position);
+            _packet.Write(_enemy.transform.rotation);
+            SendUDPDataToAll(_packet);
+        }
+    }
     #endregion
 }

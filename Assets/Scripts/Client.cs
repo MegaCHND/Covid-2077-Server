@@ -239,6 +239,10 @@ public class Client
         foreach (Interactable _interactible in Interactable.Interactables.Values) {
             ServerSend.CreateInteractible(id, _interactible.InteractibleID, _interactible.transform.position, _interactible.InteractedWith);
         }
+
+        foreach (Enemy enemy in Enemy.enemies.Values) {
+            ServerSend.spawnEnemy(id, enemy);
+        }
     }
 
     /// <summary>Disconnects the client and stops all network traffic.</summary>
