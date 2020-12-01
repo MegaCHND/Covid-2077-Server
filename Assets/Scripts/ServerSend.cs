@@ -148,6 +148,15 @@ public class ServerSend
         }
     }
 
+    public static void InteractibleUnTouched(int _interactibleID)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.InteractibleUnTouched))
+        {
+            _packet.Write(_interactibleID);
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     public static void spawnEnemy(Enemy _enemy) {
         using (Packet _packet = new Packet((int)ServerPackets.spawnEnemy))
         {
@@ -177,6 +186,13 @@ public class ServerSend
             _packet.Write(_enemy.transform.position);
             _packet.Write(_enemy.transform.rotation);
             SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void playerDC(int _playerID) {
+        using (Packet _packet = new Packet((int)ServerPackets.playerDC)) {
+            _packet.Write(_playerID);
+            SendTCPDataToAll(_packet);
         }
     }
     #endregion

@@ -256,5 +256,7 @@ public class Client
         });
         tcp.Disconnect();
         udp.Disconnect();
+
+        ServerSend.playerDC(id);
     }
 }

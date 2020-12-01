@@ -57,6 +57,12 @@ public class Enemy : MonoBehaviour
                     state = EnemyState.patrol;
                 }
                 break;
+            case EnemyState.inspect:
+                if (timer > 0)
+                {
+                    timer -= Time.deltaTime;
+                }
+                break;
         }
     }
 
@@ -90,6 +96,16 @@ public class Enemy : MonoBehaviour
 
     public enum EnemyState{
         idle,
-        patrol
+        patrol,
+        inspect
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Door")) {
+            state = EnemyState.inspect;
+            timer = 10.711f;
+            other.gameObject.transform.Rotate(0, 0, 90, Space.Self);
+        }
     }
 }

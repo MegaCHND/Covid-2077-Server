@@ -13,8 +13,10 @@ public enum ServerPackets
     playerRotation,
     createInteractible,
     InteractibleTouched,
+    InteractibleUnTouched,
     spawnEnemy,
-    enemyPosition
+    enemyPosition,
+    playerDC
 }
 
 /// <summary>Sent from client to server.</summary>

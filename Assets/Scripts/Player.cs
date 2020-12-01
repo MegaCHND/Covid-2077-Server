@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public string username;
 
     private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
+    [SerializeField]
     private bool[] inputs;
     [SerializeField]
     private bool canMove = true;
@@ -16,8 +17,7 @@ public class Player : MonoBehaviour
     {
         id = _id;
         username = _username;
-
-        inputs = new bool[3];
+        inputs = new bool[4];
     }
 
     /// <summary>Processes player input and moves the player.</summary>
@@ -68,5 +68,9 @@ public class Player : MonoBehaviour
     }
     public void startMoving() {
         canMove = true;
+    }
+
+    public bool getE() {
+        return inputs[2];
     }
 }
