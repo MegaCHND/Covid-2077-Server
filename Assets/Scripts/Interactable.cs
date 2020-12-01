@@ -12,8 +12,12 @@ public class Interactable : MonoBehaviour
     public Transform telepoint;
     public Transform returnPoint;
     public GameObject Door;
+    private float WaitTimer = .653f;
+    private float timer = 0;
     [SerializeField]
     private Player _player;
+    [SerializeField]
+    private Player _playerinLocker;
 
     private void Start()
     {
@@ -25,6 +29,7 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
+        timer -= Time.deltaTime;
         if (_player != null) {
             if (_player.getE())
             {
@@ -54,17 +59,24 @@ public class Interactable : MonoBehaviour
                 {
                     _player.gameObject.transform.position = telepoint.position;
                     _player.stopMoving();
+                    _playerinLocker = _player;
+                    timer = WaitTimer;
                     InteractedWith = true;
                     ServerSend.PlayerPosition(_player);
                     ServerSend.InteractibleTouched(InteractibleID);
                 }
-                else if (gameObject.CompareTag("Locker") && InteractedWith)
+            }
+        }
+        else if (_playerinLocker != null) {
+            if (_playerinLocker.getE()) {
+                if (gameObject.CompareTag("Locker") && InteractedWith && timer < 0)
                 {
-                    _player.gameObject.transform.position = returnPoint.position;
-                    _player.startMoving();
+                    _playerinLocker.gameObject.transform.position = returnPoint.position;
+                    _playerinLocker.startMoving();
                     InteractedWith = false;
-                    ServerSend.PlayerPosition(_player);
+                    ServerSend.PlayerPosition(_playerinLocker);
                     ServerSend.InteractibleUnTouched(InteractibleID);
+                    _playerinLocker = null;
                 }
             }
         }
@@ -80,7 +92,7 @@ public class Interactable : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !InteractedWith && _player == null) {
-            _player = other.GetComponent<Player>();  
+            _player = other.GetComponent<Player>();
         }
     }
     private void OnTriggerExit(Collider other)
