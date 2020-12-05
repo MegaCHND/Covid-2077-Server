@@ -14,6 +14,7 @@ public enum ServerPackets
     createInteractible,
     InteractibleTouched,
     InteractibleUnTouched,
+    InteractibleTouchedOnce,
     spawnEnemy,
     enemyPosition,
     playerDC

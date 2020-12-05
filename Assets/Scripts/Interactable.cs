@@ -8,6 +8,7 @@ public class Interactable : MonoBehaviour
     private static int nextInteractibleID = 1;
 
     public int InteractibleID;
+    public int type;
     public bool InteractedWith = false;
     public Transform telepoint;
     public Transform returnPoint;
@@ -85,9 +86,10 @@ public class Interactable : MonoBehaviour
     private IEnumerator Interact() {
         yield return new WaitForSeconds(8f);
         InteractedWith = true;
-        ServerSend.InteractibleTouched(InteractibleID);
+        ServerSend.InteractibleTouchedOnce(InteractibleID, type);
         _player.startMoving();
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

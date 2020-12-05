@@ -148,6 +148,16 @@ public class ServerSend
         }
     }
 
+    public static void InteractibleTouchedOnce(int _interactibleID, int _interactibleType)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.InteractibleTouched))
+        {
+            _packet.Write(_interactibleID);
+            _packet.Write(_interactibleType);
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     public static void InteractibleUnTouched(int _interactibleID)
     {
         using (Packet _packet = new Packet((int)ServerPackets.InteractibleUnTouched))
