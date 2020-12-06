@@ -150,7 +150,8 @@ public class ServerSend
 
     public static void InteractibleTouchedOnce(int _interactibleID, int _interactibleType)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.InteractibleTouched))
+        Debug.Log("Sending Packet "+ _interactibleID +" "+ _interactibleType);
+        using (Packet _packet = new Packet((int)ServerPackets.InteractibleTouchedOnce))
         {
             _packet.Write(_interactibleID);
             _packet.Write(_interactibleType);

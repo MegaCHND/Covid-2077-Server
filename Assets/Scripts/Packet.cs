@@ -13,8 +13,8 @@ public enum ServerPackets
     playerRotation,
     createInteractible,
     InteractibleTouched,
-    InteractibleUnTouched,
     InteractibleTouchedOnce,
+    InteractibleUnTouched,
     spawnEnemy,
     enemyPosition,
     playerDC
